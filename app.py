@@ -53,7 +53,7 @@ st.set_page_config(layout="wide", page_title='UK Leader Tweets')
 data, timestamp = get_data()
 
 st.header('Boris Johnson vs Keir Starmer')
-st.write('Daily tweet count: {}'.format(len(filter_by_date(data, datetime.date.today(), datetime.date.today()))))
+st.write('Total tweet count: {}'.format(data.shape[0]))
 st.write('Data last loaded {}'.format(timestamp))
 
 col1, col2 = st.beta_columns(2)
@@ -79,6 +79,7 @@ col2.dataframe(data_daily[['Tweet', 'Timestamp', 'Followers', 'Subject']].sort_v
 
 plot_freq_options = {
     'Hourly': 'H',
+    'Four Hourly': '4H',
     'Daily': 'D'
 }
 plot_freq_box = st.sidebar.selectbox(label='Plot Frequency:', options=list(plot_freq_options.keys()), index=0)
