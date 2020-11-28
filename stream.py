@@ -43,18 +43,6 @@ class TweetListener(StreamListener):
             return False
         logger.warning('Streaming error (status code {})'.format(status_code))
 
-    def insert_keyword(self, word):
-        obj = Keyword(word)
-        try:
-            with session_scope() as sess:
-                if not sess.query(Keyword).filter(Keyword.keyword == word).first():
-                    sess.add(obj)
-                id = sess.query(Keyword).filter(Keyword.keyword == word).first().id
-        except Exception as e:
-            logger.error('Unable to insert keyword: {}'.format(e))
-            raise e
-        return id
-
     def insert_tweet(self, tweet):
         try:
             with session_scope() as sess:
